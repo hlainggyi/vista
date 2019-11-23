@@ -1,0 +1,10 @@
+const app = require("../src/app")
+const setting = require("../src/config/setting.conf")
+require("../src/config/mongoose.conf")
+
+require("../src/routes")
+
+
+
+var PORT = process.env.PORT || '3000'
+app.listen(PORT)
