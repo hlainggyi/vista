@@ -11,25 +11,6 @@ var personSchema = new Schema({
     type: String,
     required: true
   },
-  isActive: {
-    type: Number
-  },
-  code: {
-    type: Number
-  },
-  createdUser: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  updatedUser: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  updated: {
-    type: Date,
-    // `Date.now()` returns the current unix timestamp as a number
-    default: Date.now
-  },
   personInfo: {
     name: {
       mm: {
@@ -42,13 +23,11 @@ var personSchema = new Schema({
       type: String,
       unique: true
     },
-    nrcSelect: String,
-    nrcNo: Number,
-    dob: {
-      type: Date,
-      default: Date.now
+    dob: Date,
+    gender: {
+      mm: String,
+      jp: String
     },
-    gender: Boolean,
     religion: {
       mm: String,
       jp: String
@@ -70,28 +49,41 @@ var personSchema = new Schema({
     blood: String,
     profileImage: String
   },
-  // interviews: [{
-  //   type: Schema.Types.ObjectId,
-  //   ref: "Interview"
-  // }],
-
   personDetail: {
     dateOfDecision: Date,
     noOfInterview: Number,
-    leftOrRight: {
+    hamPower: {
+      name: String,
+      mm: String,
+      jp: String
+    },
+    tattoo: {
       name: String,
       mm: String,
       jp: String
     },
     height: Number,
     weight: Number,
-    tattoo: Boolean,
-    alcohol: Boolean,
-    smoke: Boolean,
-    livingWithPeople: Boolean,
-    married: Boolean,
-    lover: Boolean,
-    wedding: Boolean,
+    alcohol: {
+      name: String,
+      mm: String,
+      jp: String
+    },
+    smoke: {
+      name: String,
+      mm: String,
+      jp: String
+    },
+    livingWithPeople: {
+      name: String,
+      mm: String,
+      jp: String
+    },
+    married: {
+      name: String,
+      mm: String,
+      jp: String
+    },
     self: String,
     parents: String,
     relative: String,
@@ -104,39 +96,18 @@ var personSchema = new Schema({
     howToUse: {
       mm: String,
       jp: String
-    },
-    remarks: {
-      mm: String,
-      jp: String
-    },
-    nanGlasses: {
-      right: Number,
-      left: Number
-    },
-    glasses: {
-      right: Number,
-      left: Number
-    },
-    colorView: Number,
-    handPower: {
-      left: Number,
-      right: Number
     }
   },
-
   jpInfo: {
     jpLevels: [
       {
         jpLanguageLevel: String,
-        teachingPeriod: Date,
         certificate: {
           mm: String,
           jp: String
         },
-        training: {
-          mm: String,
-          jp: String
-        }
+        teachingPeriod: String,
+        passed: String
       }
     ],
     familyInJapan: {
@@ -145,10 +116,7 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      number: {
-        type: Number,
-        default: 0
-      },
+      number: Number,
       address: {
         mm: String,
         jp: String
@@ -161,10 +129,7 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      countries: {
-        mm: String,
-        jp: String
-      }
+      countries: String
     },
     passport: {
       yesno: {
@@ -173,7 +138,7 @@ var personSchema = new Schema({
         jp: String
       },
       passportNo: String,
-      expirationDate: Date
+      expirationDate: String
     },
     otherLanguages: {
       yesno: {
@@ -181,44 +146,9 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      languages: {
-        mm: String,
-        jp: String
-      }
+      languages: String
     }
   },
-
-  edus: [
-    {
-      attendanceSchool: {
-        mm: String,
-        jp: String
-      },
-      education: {
-        mm: String,
-        jp: String
-      },
-      degree: {
-        mm: String,
-        jp: String
-      },
-      major: {
-        mm: String,
-        jp: String
-      },
-      eduStatus: {
-        mm: String,
-        jp: String
-      },
-      eduToDate: Date,
-      eduFromDate: Date,
-      achievementLevel: {
-        mm: String,
-        jp: String
-      }
-    }
-  ],
-
   jobs: [
     {
       name: {
@@ -237,7 +167,7 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      avgSalary: {
+      salary: {
         mm: Number,
         jp: Number
       },
@@ -253,7 +183,25 @@ var personSchema = new Schema({
       }
     }
   ],
-
+  edu: {
+    selectedCategory: Object,
+    selectedDegree: Object,
+    date: Date,
+    traineeEdu: Object,
+    attendanceSchool: String,
+    eduStatus: {
+      jp: String,
+      mm: String
+    },
+    major: {
+      mm: String,
+      jp: String
+    },
+    achievementLevel: {
+      jp: String,
+      mm: String
+    }
+  },
   families: [
     {
       name: {
@@ -269,28 +217,26 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      monthlyIncome: {
+      income: {
         mm: Number,
         jp: Number
       },
-      monthlyExpense: {
+      expense: {
         mm: Number,
         jp: Number
       }
     }
   ],
-
   questions: {
-    n4CanYouWin: Boolean,
-    tiredness: Boolean,
-    weakness: Boolean,
-    surgeries: Boolean,
-    noOvertime: Boolean,
-    familySurgeries: Boolean,
-    workIsFast: Boolean,
-    bodybuilding: Boolean
+    n4CanYouWin: String,
+    tiredness: String,
+    weakness: String,
+    surgeries: String,
+    noOvertime: String,
+    familySurgeries: String,
+    workIsFast: String,
+    bodybuilding: String
   },
-
   other: {
     advantages: {
       mm: String,
@@ -313,13 +259,27 @@ var personSchema = new Schema({
       jp: String
     }
   },
-
-  images: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Image"
-    }
-  ]
+  // interviews: [{
+  //   type: Schema.Types.ObjectId,
+  //   ref: "Interview"
+  // }],
+  isActive: {
+    type: Number,
+    default: 1
+  },
+  createdUser: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  updatedUser: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  updated: {
+    type: Date,
+    // `Date.now()` returns the current unix timestamp as a number
+    default: Date.now
+  }
 });
 
-module.exports = mongoose.model("Person", personSchema, "persons");
+// module.exports = mongoose.model("Person", personSchema, "persons");

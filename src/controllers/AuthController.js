@@ -1,4 +1,5 @@
 const { User, Company } = require("../models")
+const Labels = require("../json")
 module.exports = {
     async index (req, res) {
         try {
@@ -74,7 +75,9 @@ module.exports = {
             const user = await User.findByCredentials(req.body.email, req.body.password)
             const token = await user.generateAuthToken()
             const company = await Company.findOne({ _id: user.company },{ _id:0, __v:0})
-            res.send({ user, company, token})
+            const labels = await Labels
+            
+            res.send({ user, company, token, labels})
         } catch (e) {
             res.status(400).send()
         }

@@ -4,24 +4,29 @@ const Ctrl = require("../../controllers");
 // Policy
 const Mid = require("../../middlewares");
 
+const upload = Ctrl.ImageUpload;
+
+const uploadImage = Mid.uploadImage;
+
+const uploadImageGallery = Mid.uploadImageGallery;
+
 module.exports = (app) => {
   // For Person
   // Person Route
-    /** name, position, nrc, company_id */
-    // app.get("/v1/persons", Ctrl.PersonController.index)
-    // app.post("/v1/persons", Ctrl.PersonController.post)
-    // app.get("/v1/persons/:personId", Ctrl.PersonController.show)
-    // app.put("/v1/persons/:personId", Ctrl.PersonController.put)
-    // app.delete("/v1/persons/:personId", Ctrl.PersonController.remove)
+  /** name, position, nrc, company_id */
+  app.get("/v1/persons", Ctrl.PersonController.index);
+  // app.post('/v1/persons', Mid.isAuth, Ctrl.PersonController.post)
+  app.post("/v1/persons", Mid.isAuth, uploadImage, Ctrl.PersonController.post);
+  // app.post('/v1/persons', Mid.isAuth, upload.single('image'), Ctrl.PersonController.post)
+  app.get("/v1/persons/:personId", Ctrl.PersonController.show);
+  app.put("/v1/persons", Mid.isAuth, uploadImage, Ctrl.PersonController.put);
 
+  app.delete("/v1/persons/:personId", Ctrl.PersonController.remove);
 
-    // Education Route
-    app.get('/v1/educations', Ctrl.EducationController.index)
-    app.post('/v1/educations', Ctrl.EducationController.post)
-    
-    // Caterogy Route 
-    app.get('/v1/categories', Ctrl.CategoryController.index)
-    app.get('/v1/categories-name/:name', Ctrl.CategoryController.getCategoryName)
-    app.post('/v1/categories', Ctrl.CategoryController.post)
+  // For Home
+  app.get("/v1/persons-resume", Ctrl.PersonController.resume);
 
-}
+  app.get("/v1/nrc-lists", Ctrl.NrcController.index);
+  app.post("/v1/nrc-lists", Ctrl.NrcController.post);
+  app.put("/v1/nrc-lists", Ctrl.NrcController.put);
+};

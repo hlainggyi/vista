@@ -14,3 +14,14 @@ app._router.stack.forEach(function(r){
     //   console.log("Successful Connection !");
     }
   })
+
+
+
+
+// http://52.221.208.158/v1/login
+
+
+// http://52.221.208.158/v1/roles
+
+
+// http://52.221.208.158/v1/users

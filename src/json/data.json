@@ -1,0 +1,216 @@
+{
+  "yesno": [
+    {
+      "name": "yes",
+      "mm": "ရှိ",
+      "jp": "有"
+    },
+    {
+      "name": "no",
+      "mm": "မရှိ",
+      "jp": "無"
+    }
+  ],
+  "drink": [
+    {
+      "name": "yes",
+      "mm": "သောက်",
+      "jp": "有"
+    },
+    {
+      "name": "no",
+      "mm": "မသောက်",
+      "jp": "無"
+    }
+  ],
+  "leftOrRight": [
+    {
+      "name": "left",
+      "mm": "ဘယ်",
+      "jp": "左"
+    },
+    {
+      "name": "right",
+      "mm": "ညာ",
+      "jp": "左"
+    }
+  ],
+  "jpLanguageLevel": ["N1", "N2", "N3", "N4", "N5"],
+  "bloods": ["O", "A", "B", "AB"],
+  "IT": [
+    {
+      "degree": {
+        "mm": "B.C.Sc",
+        "jp": ""
+      },
+      "majors": [
+        "Knowledge Engineering",
+        "Software Engineering",
+        "Cyber Security and Forensics",
+        "Business Information Systems"
+      ]
+    },
+    {
+      "degree": {
+        "mm": "B.C.Tech",
+        "jp": ""
+      },
+      "majors": ["Embedded Systems", "Computer Communication and Networks"]
+    },
+    {
+      "degree": {
+        "mm": "M.C.Sc",
+        "jp": ""
+      },
+      "majors": [
+        "Knowledge Engineering",
+        "Software Engineering",
+        "Cyber Security and Forensics",
+        "Business Information Systems"
+      ]
+    },
+    {
+      "degree": {
+        "mm": "M.C.Tech",
+        "jp": ""
+      },
+      "majors": ["Embedded Systems", "Computer Communication and Networks"]
+    },
+    {
+      "degree": {
+        "mm": "B.E.(CEIT)",
+        "jp": ""
+      },
+      "majors": ["Computer Engineering & Information Technology"]
+    },
+    {
+      "degree": {
+        "mm": "M.E.(CEIT)",
+        "jp": ""
+      },
+      "majors": ["Computer Engineering & Information Technology"]
+    }
+  ],
+  "Engineer": [
+    {
+      "degree": {
+        "mm": "B.Arch.",
+        "jp": ""
+      },
+      "majors": ["Architecutre"]
+    },
+    {
+      "degree": {
+        "mm": "M.Arch.",
+        "jp": ""
+      },
+      "majors": ["Architecutre"]
+    },
+    {
+      "degree": {
+        "mm": "B.E.",
+        "jp": ""
+      },
+      "majors": [
+        "Chemical",
+        "Civil",
+        "Electrical Power",
+        "Electronics",
+        "Mechanical",
+        "Mechatronics",
+        "Metallurgy",
+        "Mining",
+        "Petroleum",
+        "Textile"
+      ]
+    },
+    {
+      "degree": {
+        "mm": "M.E.",
+        "jp": ""
+      },
+      "majors": [
+        "Chemical",
+        "Civil",
+        "Electrical Power",
+        "Electronics",
+        "Mechanical",
+        "Mechatronics",
+        "Metallurgy",
+        "Mining",
+        "Petroleum",
+        "Textile"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "mm": "တက္ကသိုလ် (Day)",
+      "jp": "大学（日）"
+    },
+    {
+      "mm": "တက္ကသိုလ် (Distance)",
+      "jp": "大学（距離）"
+    },
+    {
+      "mm": "အထက်တန်း",
+      "jp": "高校"
+    },
+    {
+      "mm": "အလယ်တန်း",
+      "jp": "中学校"
+    }
+  ],
+  "eduStatus": [
+    {
+      "mm": "ကျောင်းပြီး",
+      "jp": "卒業"
+    },
+    {
+      "mm": "ကျောင်းတက်ဆဲ",
+      "jp": "在学中"
+    },
+    {
+      "mm": "တက်ဆဲနား",
+      "jp": "休学"
+    },
+    {
+      "mm": "အပြီးနား",
+      "jp": "中退"
+    }
+  ],
+  "achievementLevel": [
+    {
+      "mm": "ကောင်း",
+      "jp": "上"
+    },
+    {
+      "mm": "သင့်",
+      "jp": "中"
+    },
+    {
+      "mm": "ညံ့",
+      "jp": "下"
+    }
+  ],
+  "certificate": [
+    {
+      "mm": "JLPT",
+      "jp": "JLPT"
+    },
+    {
+      "mm": "NAT-TEST",
+      "jp": "NAT-TEST"
+    }
+  ],
+  "training": [
+    {
+      "mm": "pass",
+      "jp": "pass"
+    },
+    {
+      "mm": "attending",
+      "jp": "attending"
+    }
+  ]
+}
