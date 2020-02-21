@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"vistamyanmar.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"vistamyanmar.users","background":true}],"uuid":"22079ec3411d41a3a5b2d27ce50eaf45"}

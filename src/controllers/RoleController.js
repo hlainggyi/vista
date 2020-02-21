@@ -1,78 +1,76 @@
-const { Role } = require('../models')
+const { Role } = require("../models");
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     try {
-        
-        const roles = await Role.findByRole(req.user.role)
-        
+      const roles = await Role.findByRole(req.user.role);
+
       res.send({
         roles: roles
-      })  
-      
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the Admin Roles'
-      })
+        error: "an error has occured trying to show the Admin Roles"
+      });
     }
   },
-  async devroles (req, res) {
+  async devroles(req, res) {
     try {
-      // roles.level 
-      const roles = await Role.find( { level: { $gt: 0 } } ).sort({"date": -1})
+      // roles.level
+      const roles = await Role.find({ level: { $gt: 0 } }).sort({ date: -1 });
       res.send({
         roles: roles
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the Roles'
-      })
+        error: "an error has occured trying to show the Roles"
+      });
     }
   },
-  async show (req, res) {
+  async show(req, res) {
     try {
-      const role = await Role.findById({ _id: req.params.RoleID })
+      const role = await Role.findById({ _id: req.params.RoleID });
       res.send({
         role: role
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the Roles'
-      })
+        error: "an error has occured trying to show the Roles"
+      });
     }
   },
-  async post (req, res) {
+  async post(req, res) {
     try {
-      const role = await Role.create(req.body)
+      const role = await Role.create(req.body);
       res.send({
         role: role
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to create the Role'
-      })
+        error: "an error has occured trying to create the Role"
+      });
     }
   },
-  async put (req, res) {
+  async put(req, res) {
     try {
-      const role = await Role.update({ _id: req.params.RoleID }, req.body)
+      const role = await Role.update({ _id: req.params.RoleID }, req.body);
       res.send({
         role: role
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to update the Role'
-      })
+        error: "an error has occured trying to update the Role"
+      });
     }
   },
-  async remove (req, res) {
+  async remove(req, res) {
     try {
-      await role.remove({ _id: req.params.RoleID })
-      res.send("success deleted")
+      await role.remove({ _id: req.params.RoleID });
+      res.send("success deleted");
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to delete the Role'
-      })
+        error: "an error has occured trying to delete the Role"
+      });
     }
   }
-}
+};

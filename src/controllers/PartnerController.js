@@ -3,70 +3,73 @@ const { Partner, Company } = require("../models");
 module.exports = {
   async index(req, res) {
     try {
-      // const partner = await School.findById({ _id: req.user.partner }, {__v:0}).populate('teachers')
-      // const teachers = school.teachers
+      const partners = await Partner.find(
+        { company: req.user.company },
+        { __v: 0 }
+      );
       res.send({
-        teachers: teachers
+        partners: partners
       });
     } catch (err) {
       res.status(500).send({
-        error: "This error is Teacher index"
+        error: "This partner list is failed !"
       });
     }
   },
   async post(req, res) {
     try {
       // 1. Find the the actual school
-      const partner = await Partner.findById({ _id: req.user.partner });
+      const company = await Company.findById({ _id: req.user.company });
 
       // 2. Create a new teacher
-      const newTeacher = {
+      const newPartner = {
         name: req.body.name,
-        position: req.body.position,
-        nrc: req.body.nrc,
-        school: req.user.school
+        company: req.user.company,
+        companyName: req.body.companyName,
+        logo: req.body.logo,
+        email: req.body.email,
+        address: req.body.address,
+        status: req.body.status
       };
 
-      const teacher = await Teacher.create(newTeacher);
+      const partner = await Partner.create(newPartner);
 
       // 3. Add newly created teacher to the actual school
-      school.teachers.push(teacher);
+      company.partners.push(partner);
 
-      await school.save();
+      await company.save();
       res.send({
-        success: true,
-        message: "Teacher create is successiful !"
+        saved: true,
+        message: "Partner create is success !"
       });
     } catch (err) {
       res.status(500).send({
-        error: "This error is Teacher create"
+        error: "Partner create is failed !"
       });
     }
   },
   async show(req, res) {
     try {
-      const teacher = await Teacher.findById({ _id: req.params.teacherId });
+      const partner = await Partner.findById({ _id: req.params.partner });
       res.send({
-        teacher: teacher
+        partner: partner
       });
     } catch (err) {
       res.status(500).send({
-        error: "This error is Teacher show"
+        error: "This partner is failed !"
       });
     }
   },
   async put(req, res) {
     try {
-      const teacher = await Teacher.update(
-        { _id: req.params.teacherId },
-        req.body
-      );
+      await Partner.updateOne({ _id: req.body._id }, req.body);
       res.send({
-        teacher: teacher
+        saved: true,
+        message: "This partner is updated !"
       });
     } catch (err) {
       res.status(500).send({
-        error: "This error is Teacher put"
+        error: "This partner is failed update !"
       });
     }
   },

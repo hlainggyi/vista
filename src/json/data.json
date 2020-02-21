@@ -11,6 +11,92 @@
       "jp": "無"
     }
   ],
+  "religion": [
+    {
+      "mm": "Buddish",
+      "jp": "仏教"
+    },
+    {
+      "mm": "Christian",
+      "jp": "キリスト教"
+    },
+    {
+      "mm": "Islam",
+      "jp": "イスラム教"
+    },
+    {
+      "mm": "Other",
+      "jp": "その他"
+    }
+  ],
+  "nationality": [
+    {
+      "mm": "Myanmar",
+      "jp": "ミャンマー"
+    },
+    {
+      "mm": "Shan",
+      "jp": "シャン族"
+    },
+    {
+      "mm": "Kayin",
+      "jp": "カリン族"
+    },
+    {
+      "mm": "Yakhine",
+      "jp": "ラカイン族"
+    },
+    {
+      "mm": "Mon",
+      "jp": "モン族"
+    },
+    {
+      "mm": "Other",
+      "jp": "その他"
+    }
+  ],
+  "families": [
+    {
+      "mm": "Father",
+      "jp": "父"
+    },
+    {
+      "mm": "Mother",
+      "jp": "母"
+    },
+    {
+      "mm": "Old Brother",
+      "jp": "兄"
+    },
+    {
+      "mm": "Little Brother",
+      "jp": "弟"
+    },
+    {
+      "mm": "Old Sister",
+      "jp": "姉"
+    },
+    {
+      "mm": "Little Sister",
+      "jp": "妹"
+    },
+    {
+      "mm": "Grandfather",
+      "jp": "おじいさん"
+    },
+    {
+      "mm": "Grandmother",
+      "jp": "おばあさん"
+    },
+    {
+      "mm": "Aunt",
+      "jp": "おば"
+    },
+    {
+      "mm": "Uncle",
+      "jp": "あじ"
+    }
+  ],
   "drink": [
     {
       "name": "yes",
@@ -32,7 +118,7 @@
     {
       "name": "right",
       "mm": "ညာ",
-      "jp": "左"
+      "jp": "右"
     }
   ],
   "jpLanguageLevel": ["N1", "N2", "N3", "N4", "N5"],
@@ -112,16 +198,18 @@
         "jp": ""
       },
       "majors": [
-        "Chemical",
-        "Civil",
-        "Electrical Power",
-        "Electronics",
-        "Mechanical",
-        "Mechatronics",
-        "Metallurgy",
-        "Mining",
-        "Petroleum",
-        "Textile"
+        {
+          "mm": "Chemical",
+          "jp": "化学工学"
+        },
+        {
+          "mm": "Civil",
+          "jp": "土木工学"
+        },
+        {
+          "mm": "Electrical Power",
+          "jp": "電力工学"
+        }
       ]
     },
     {

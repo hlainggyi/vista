@@ -25,8 +25,4 @@ module.exports = (app) => {
 
   // For Home
   app.get("/v1/persons-resume", Ctrl.PersonController.resume);
-
-  app.get("/v1/nrc-lists", Ctrl.NrcController.index);
-  app.post("/v1/nrc-lists", Ctrl.NrcController.post);
-  app.put("/v1/nrc-lists", Ctrl.NrcController.put);
 };

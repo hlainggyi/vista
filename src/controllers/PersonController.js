@@ -105,7 +105,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      const editPerson = {
+      const updatePerson = {
         isActive: req.body.isActive,
         personInfo: req.body.personInfo,
         personDetail: req.body.personDetail,
@@ -117,17 +117,17 @@ module.exports = {
         other: req.body.other,
         images: req.body.images
       };
-      await Person.update({ _id: req.body.person }, editPerson);
+      await Person.updateOne({ _id: req.body.person }, updatePerson);
 
-      const gallery = {
-        name: req.body.galleryImage.name,
-        src: req.body.galleryImage.src,
-        caption: req.body.galleryImage.caption
-      };
+      // const gallery = {
+      //   name: req.body.galleryImage.name,
+      //   src: req.body.galleryImage.src,
+      //   caption: req.body.galleryImage.caption
+      // };
 
       res.send({
         saved: true,
-        message: "success updated"
+        message: "Success updated !"
       });
     } catch (err) {
       res.status(500).send({

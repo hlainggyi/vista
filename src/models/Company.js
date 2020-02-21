@@ -11,6 +11,7 @@ var companySchema = new Schema({
     required: true
   },
   address: String,
+  yenExchangeRate: Number,
   logo: String,
   // profile: String,
   // level: {

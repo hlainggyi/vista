@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var NrcSchema = new Schema({
+var nrcSchema = new Schema({
   nrclists: [
     {
       type: String
@@ -9,4 +9,4 @@ var NrcSchema = new Schema({
   ]
 });
 
-module.exports = mongoose.model("Nrc", NrcSchema);
+module.exports = mongoose.model("NRC", nrcSchema);

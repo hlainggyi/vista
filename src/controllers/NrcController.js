@@ -1,9 +1,9 @@
-const { Nrc } = require("../models");
+const { NRC } = require("../models");
 
 module.exports = {
   async index(req, res) {
     try {
-      const nrclists = await Nrc.find({});
+      const nrclists = await NRC.find({});
       res.send({
         nrclists: nrclists
       });
@@ -15,19 +15,15 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      // const newNrc = {
-      //   nrclists: req.body.nrclists
-      // };
-
-      const nrclists = await Nrc.create(req.body);
+      await NRC.create(req.body);
       res.send({
         saved: true,
-        message: "Successiful",
-        nrclists: nrclists
+        message: "Successiful created nrc !"
       });
     } catch (err) {
       res.status(500).send({
-        error: "an error has occured trying to create the NRC"
+        saved: false,
+        error: "Your nrc create failed !"
       });
     }
   },
@@ -36,14 +32,16 @@ module.exports = {
       const updateNrc = {
         nrclists: req.body.nrclists
       };
-      const nrclists = await Nrc.update({ _id: req.body._id }, updateNrc);
+      await NRC.updateOne({ _id: req.body._id }, updateNrc);
       // const nrclists = req.body;
       res.send({
-        nrclists: nrclists
+        saved: true,
+        message: "Successiful updated nrc !"
       });
     } catch (err) {
       res.status(500).send({
-        error: "an error has occured trying to update the NRC"
+        saved: false,
+        error: "Your nrc update failed !"
       });
     }
   }

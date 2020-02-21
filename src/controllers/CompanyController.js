@@ -1,51 +1,58 @@
-const { Company, User, Role} = require('../models')
+const { Company, User, Role } = require("../models");
 // const company  = require('../models/company')
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     try {
-      const companies = await Company.find({}, {
-        users: 0, _id: 0
-      }).sort({"date": -1})
+      const companies = await Company.find(
+        {},
+        {
+          users: 0,
+          _id: 0
+        }
+      ).sort({ date: -1 });
       res.send({
         companies: companies
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the companies'
-      })
+        error: "an error has occured trying to index the companies"
+      });
     }
   },
-  async show (req, res) {
+  async show(req, res) {
     try {
-      const company = await Company.findById({ _id: req.user.company}).populate('users')
+      const company = await Company.findById({
+        _id: req.user.company
+      });
+      // const company = await req.user;
       res.send({
         company: company
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to show the companies'
-      })
+        error: "an error has occured trying to show"
+      });
     }
   },
-  async post (req, res) {
+  async post(req, res) {
     try {
       // 1. Check email
-      const user = await User.findOne({email: req.body.email}).exec();
-      
+      const user = await User.findOne({ email: req.body.email }).exec();
+
       if (user != null) {
-        if(user.email == req.body.email) {
+        if (user.email == req.body.email) {
           res.status(500).send({
             error: `Your email: ${req.body.email} has already been registered`
-          })
-        } 
+          });
+        }
       } else {
         // 2. Create company
         // const company = await req.body
         // console.log(company)
-        const company = await Company.create(req.body)
+        const company = await Company.create(req.body);
         // 3. Find role
-        const role = await Role.findOne({name: 'admin'}).exec();
+        const role = await Role.findOne({ name: "admin" }).exec();
 
         // 4. Create a new user
         const newUser = {
@@ -54,21 +61,21 @@ module.exports = {
           password: "password",
           company: company._id,
           role: role._id
-        }     
-        const addUser = await User.create(newUser)
-          // 3. Add newly created user to the actual company
-        company.users.push(addUser)
+        };
+        const addUser = await User.create(newUser);
+        // 3. Add newly created user to the actual company
+        company.users.push(addUser);
         await company.save();
-      }      
-      
+      }
+
       res.send({
-        saved : true,
+        saved: true,
         message: "Create company Successfully"
-      })
+      });
     } catch (err) {
       res.status(500).send({
-        error: 'an error has occured trying to create the company'
-      })
+        error: "an error has occured trying to create the company"
+      });
     }
   },
 
@@ -77,13 +84,13 @@ module.exports = {
   //   try {
   //     // 1. Check email
   //     const user = await User.findOne({email: req.body.email}).exec();
-      
+
   //     if (user != null) {
   //       if(user.email == req.body.email) {
   //         res.status(500).send({
   //           error: `Your email: ${req.body.email} has already been registered`
   //         })
-  //       } 
+  //       }
   //     }
 
   //     // 2. Create company
@@ -98,7 +105,7 @@ module.exports = {
   //       password: "password",
   //       company: Company._id,
   //       role: role._id
-  //     }     
+  //     }
   //     const addUser = await User.create(newUser)
 
   //     // 5. Add newly created user to the actual company
@@ -114,18 +121,23 @@ module.exports = {
   //     })
   //   }
   // },
-  // async put (req, res) {
-  //   try {
-  //     const company = await Company.update({ _id: req.params.companyId }, req.body)
-  //     res.send({
-  //       company: company
-  //     })
-  //   } catch (err) {
-  //     res.status(500).send({
-  //       error: 'an error has occured trying to update the company'
-  //     })
-  //   }
-  // },
+  async put(req, res) {
+    try {
+      const company = await Company.updateOne(
+        { _id: req.user.company },
+        req.body
+      );
+      res.send({
+        company: company,
+        saved: true,
+        message: "Your company info is success updated !"
+      });
+    } catch (err) {
+      res.status(500).send({
+        error: "an error has occured trying to update the company"
+      });
+    }
+  }
   // async remove (req, res) {
   //   try {
   //     await Company.remove({ _id: req.params.companyId })
@@ -136,4 +148,4 @@ module.exports = {
   //     })
   //   }
   // }
-}
+};

@@ -85,22 +85,55 @@ var personSchema = new Schema({
     },
     height: Number,
     weight: Number,
-    tattoo: Boolean,
-    alcohol: Boolean,
-    smoke: Boolean,
-    livingWithPeople: Boolean,
-    married: Boolean,
-    lover: Boolean,
-    wedding: Boolean,
-    self: String,
-    parents: String,
-    relative: String,
-    bank: String,
-    other: String,
-    threeYearIncome: {
-      mm: Number,
-      jp: Number
+    tattoo: {
+      type: Boolean,
+      default: false
     },
+    alcohol: {
+      type: Boolean,
+      default: false
+    },
+    smoke: {
+      type: Boolean,
+      default: false
+    },
+    livingWithPeople: {
+      type: Boolean,
+      default: true
+    },
+    married: {
+      type: Boolean,
+      default: false
+    },
+    lover: {
+      type: Boolean,
+      default: false
+    },
+    wedding: {
+      type: Boolean,
+      default: false
+    },
+    self: {
+      type: Number,
+      default: 0
+    },
+    parents: {
+      type: Number,
+      default: 0
+    },
+    relative: {
+      type: Number,
+      default: 0
+    },
+    bank: {
+      type: Number,
+      default: 0
+    },
+    other: {
+      type: Number,
+      default: 0
+    },
+    threeYearIncome: Number,
     howToUse: {
       mm: String,
       jp: String
@@ -237,10 +270,7 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      avgSalary: {
-        mm: Number,
-        jp: Number
-      },
+      avgSalary: Number,
       description: {
         mm: String,
         jp: String
@@ -269,14 +299,8 @@ var personSchema = new Schema({
         mm: String,
         jp: String
       },
-      monthlyIncome: {
-        mm: Number,
-        jp: Number
-      },
-      monthlyExpense: {
-        mm: Number,
-        jp: Number
-      }
+      monthlyIncome: Number,
+      monthlyExpense: Number
     }
   ],
 
