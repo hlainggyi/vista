@@ -9,13 +9,23 @@ module.exports = (app) => {
   // Partner Route
   /** name, position, nrc, company_id */
   app.get("/v1/partners", Mid.isAuth, Ctrl.PartnerController.index);
-  app.post("/v1/partners", Mid.isAuth, Ctrl.PartnerController.post);
+  app.post(
+    "/v1/partners",
+    Mid.isAuth,
+    Mid.isRole("admin"),
+    Ctrl.PartnerController.post
+  );
   app.get(
     "/v1/partners-show/:partner",
     Mid.isAuth,
     Ctrl.PartnerController.show
   );
-  app.put("/v1/partners", Mid.isAuth, Ctrl.PartnerController.put);
+  app.put(
+    "/v1/partners",
+    Mid.isRole("admin"),
+    Mid.isAuth,
+    Ctrl.PartnerController.put
+  );
   app.delete(
     "/v1/partners/:partnerId",
     Mid.isAuth,

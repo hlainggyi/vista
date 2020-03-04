@@ -14,8 +14,18 @@ module.exports = (app) => {
     Mid.isAuth,
     Ctrl.InterviewController.persons
   );
-  app.post("/v1/interviews", Mid.isAuth, Ctrl.InterviewController.post);
-  app.put("/v1/interviews", Mid.isAuth, Ctrl.InterviewController.put);
+  app.post(
+    "/v1/interviews",
+    Mid.isAuth,
+    Mid.isRole("admin"),
+    Ctrl.InterviewController.post
+  );
+  app.put(
+    "/v1/interviews",
+    Mid.isAuth,
+    Mid.isRole("admin"),
+    Ctrl.InterviewController.put
+  );
   app.get(
     "/v1/interviews-show/:interview",
     Mid.isAuth,

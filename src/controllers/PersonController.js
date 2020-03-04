@@ -7,8 +7,10 @@ module.exports = {
   async index(req, res) {
     try {
       let categories = req.query.c;
+      let isActive = parseInt(req.query.a);
       const persons = await Person.aggregate([
-        { $match: { categories: categories, isActive: { $gt: 0 } } },
+        { $match: { categories: categories, isActive: isActive } },
+        { $sort: { updated: -1 } },
         {
           $project: {
             profileImage: "$personInfo.profileImage",
@@ -28,13 +30,13 @@ module.exports = {
             jpLanguageLevel: "$jpInfo.jpLevels",
             // certificate: "$jpInfo.certificate",
             passport: "$jpInfo.passport",
-            edus: "$edus"
+            edus: "$edus",
+            updated: "$updated"
           }
         }
       ]).allowDiskUse(true);
       res.send({
-        persons: persons,
-        querry: req.querry
+        persons: persons
       });
     } catch (err) {
       res.status(500).send({
