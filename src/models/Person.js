@@ -78,6 +78,12 @@ var personSchema = new Schema({
   personDetail: {
     dateOfDecision: Date,
     noOfInterview: Number,
+    priorities: [
+      {
+        mm: String,
+        jp: String
+      }
+    ],
     leftOrRight: {
       name: String,
       mm: String,
@@ -252,6 +258,21 @@ var personSchema = new Schema({
     }
   ],
 
+  trainings: [
+    {
+      trainingSchool: {
+        mm: String,
+        jp: String
+      },
+      certificate: {
+        mm: String,
+        jp: String
+      },
+      trainingToDate: Date,
+      trainingFromDate: Date
+    }
+  ],
+
   jobs: [
     {
       name: {
@@ -321,6 +342,10 @@ var personSchema = new Schema({
       jp: String
     },
     disadvantage: {
+      mm: String,
+      jp: String
+    },
+    hobby: {
       mm: String,
       jp: String
     },
