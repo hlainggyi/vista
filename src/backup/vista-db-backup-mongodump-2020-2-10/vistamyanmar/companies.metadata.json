@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"vistamyanmar.companies"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"vistamyanmar.companies","background":true}],"uuid":"667dcfe5548b4e819762ba1dee1b25f8"}

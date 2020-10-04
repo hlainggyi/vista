@@ -4,11 +4,7 @@ const Ctrl = require("../../controllers");
 // Policy
 const Mid = require("../../middlewares");
 
-const upload = Ctrl.ImageUpload;
-
 const uploadImage = Mid.uploadImage;
-
-const uploadImageGallery = Mid.uploadImageGallery;
 
 module.exports = (app) => {
   // For Person
@@ -41,4 +37,20 @@ module.exports = (app) => {
 
   // For Home
   app.get("/v1/persons-resume", Ctrl.PersonController.resume);
+
+  //    For Japanese Language
+  // app.get("/v1/nations", Mid.isAuth, Ctrl.JapaneseLanguageController.index);
+  // app.get("/v1/nations-list", Mid.isAuth, Ctrl.JapaneseLanguageController.list);
+  app.post(
+    "/v1/japaneselanguages",
+    Mid.isAuth,
+    Mid.isRole("admin"),
+    Ctrl.JapaneseLanguageController.post
+  );
+  app.put(
+    "/v1/japaneselanguages",
+    Mid.isAuth,
+    Mid.isRole("admin"),
+    Ctrl.JapaneseLanguageController.put
+  );
 };

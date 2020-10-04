@@ -1,6 +1,8 @@
 const fs = require("fs");
 const mime = require("mime");
 
+// -- for passport image
+
 const uploadImage = async (req, res, next) => {
   try {
     var img = await req.body.personInfo.profileImage.split(".");
@@ -9,8 +11,8 @@ const uploadImage = async (req, res, next) => {
     if (imgLength === 1) {
       // var matches = await image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
       var matches = await req.body.personInfo.profileImage.match(
-          /^data:([A-Za-z-+\/]+);base64,(.+)$/
-        ),
+        /^data:([A-Za-z-+\/]+);base64,(.+)$/
+      ),
         response = {};
 
       if (matches.length !== 3) {

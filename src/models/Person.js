@@ -362,11 +362,10 @@ var personSchema = new Schema({
       jp: String
     }
   },
-
-  images: [
+  gallery: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Image"
+      ref: "Gallery"
     }
   ]
 });

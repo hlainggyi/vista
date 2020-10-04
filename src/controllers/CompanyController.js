@@ -22,10 +22,15 @@ module.exports = {
   },
   async show(req, res) {
     try {
-      const company = await Company.findById({
+      const newCompany = await Company.findById({
         _id: req.user.company
       });
-      // const company = await req.user;
+      const company = {
+        name: newCompany.name,
+        email: newCompany.email,
+        address: newCompany.address,
+        yenExchangeRate: newCompany.yenExchangeRate
+      };
       res.send({
         company: company
       });

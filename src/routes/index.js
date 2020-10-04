@@ -8,9 +8,10 @@ require("./v1/personRoutes")(app);
 require("./v1/dataUpdateRoutes")(app);
 require("./v1/partnerRoutes")(app);
 require("./v1/interviewRoutes")(app);
+require("./v1/fileUploadRoutes")(app);
 
 // View Routes List
-app._router.stack.forEach(function(r) {
+app._router.stack.forEach(function (r) {
   if (r.route && r.route.path) {
     console.log(r.route.path);
     //   console.log("Successful Connection !");

@@ -12,13 +12,12 @@ module.exports = (app) => {
   app.put(
     "/v1/companies",
     Mid.isAuth,
-    Mid.isRole("developer"),
+    Mid.isRole("developer", "admin"),
     Ctrl.CompanyController.put
   );
   app.get(
     "/v1/companies-show",
     Mid.isAuth,
-    Mid.isRole("developer"),
     Ctrl.CompanyController.show
   );
 };

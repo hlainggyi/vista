@@ -95,7 +95,9 @@ module.exports = {
   },
   async show(req, res) {
     try {
-      const person = await Person.findById({ _id: req.params.personId });
+      const person = await Person.findById({
+        _id: req.params.personId
+      }).populate("japaneselanguages");
 
       res.send({
         person: person
