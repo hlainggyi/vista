@@ -68,7 +68,8 @@ var personSchema = new Schema({
       jp: String
     },
     blood: String,
-    profileImage: String
+    profileImage: String,
+    image: String
   },
   // interviews: [{
   //   type: Schema.Types.ObjectId,

@@ -2,8 +2,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var imageSchema = new Schema({
-  name: String,
-  caption: String,
   src: String,
   person: {
     type: Schema.Types.ObjectId,

@@ -1,5 +1,9 @@
 const { Upload, Person } = require("../models");
 const AWS = require('aws-sdk')
+const s3 = new AWS.S3({
+    accessKeyId: "AKIAIAVAIIOIZDDJGVGQ",
+    secretAccessKey: "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"
+})
 
 module.exports = {
     async index(req, res) {
@@ -48,22 +52,23 @@ module.exports = {
         const file = req.files;
         const person = req.params.personId;
         let now = Date.now();
-        let s3bucket = new AWS.S3({
-            accessKeyId: "AKIAIAVAIIOIZDDJGVGQ",
-            secretAccessKey: "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"
-        })
-        s3bucket.createBucket(function () {
+        // let s3bucket = new AWS.S3({
+        //     accessKeyId: "AKIAIAVAIIOIZDDJGVGQ",
+        //     secretAccessKey: "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"
+        // })
+        s3.createBucket(function () {
             // let Bucket_Path = 's3://vista-test/uploads';
             //Where you want to store your file
+            // let now = Date.now();
             var ResponseData = [];
 
             file.map((item) => {
                 var params = {
-                    Bucket: 'vista-test/uploads',
+                    Bucket: 'vista-international/uploads',
                     Key: `${now}-${item.originalname}`,
                     Body: item.buffer
                 };
-                s3bucket.upload(params, function (err, data) {
+                s3.upload(params, function (err, data) {
                     if (err) {
                         res.json({ "error": true, "Message": err });
                     } else {
@@ -121,6 +126,24 @@ module.exports = {
             res.status(500).send({
                 saved: false,
                 error: "Your file delete failed !"
+            });
+        }
+    },
+
+    async imageUpload(req, res) {
+        try {
+            // const image = req.files;
+
+            res.send({
+                image: req.body,
+                saved: true,
+                message: "Successiful deleted !"
+            });
+
+        } catch (err) {
+            res.status(500).send({
+                saved: false,
+                error: "Your file image upload failed !"
             });
         }
     }

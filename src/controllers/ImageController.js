@@ -1,77 +1,80 @@
-const { Image, Person } = require("../models");
+const { Person } = require("../models");
+const AWS = require('aws-sdk')
 
 module.exports = {
-  async index(req, res) {
-    try {
-      // const images = await Education.find({}, {__v:0})
-      //                                   .populate("category", {images:0, __v:0})
-      // res.send({
-      //   images: images
-      // })
-    } catch (err) {
-      res.status(500).send({
-        error: "an error has occured trying to show the images"
-      });
-    }
-  },
-  async show(req, res) {
-    try {
-      // const image = await Education.findById({ _id: req.params.educationID })
-      // res.send({
-      //   education: education
-      // })
-    } catch (err) {
-      res.status(500).send({
-        error: "an error has occured trying to show the images"
-      });
-    }
-  },
   async post(req, res) {
-    try {
-      const newImage = {
-        name: req.body.name,
-        caption: req.body.caption,
-        src: req.body.src + "/" + req.body.name,
-        person: req.body.person
-      };
-      // const image = await Image.create(req.body);
+    const file = req.files;
+    const person = req.params.personId;
+    let now = Date.now();
+    let s3bucket = new AWS.S3({
+      accessKeyId: "AKIAIAVAIIOIZDDJGVGQ",
+      secretAccessKey: "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"
+    })
+    s3bucket.createBucket(function () {
+      // let Bucket_Path = 's3://vista-test/uploads';
+      //Where you want to store your file
+      var ResponseData = [];
 
-      // const person = await Person.findOne({ _id: image.person }).exec();
-      // // 3. Add newly created user to the actual company
-      // person.images.push(image);
-      // await person.save();
+      file.map((item) => {
+        var params = {
+          Bucket: 'vista-test/images',
+          Key: `${now}-${item.originalname}`,
+          Body: item.buffer
+        };
+        s3bucket.upload(params, function (err, data) {
+          if (err) {
+            res.json({ "error": true, "Message": err });
+          } else {
+            let fileUpload = {
+              url: data.Location
+            }
+            ResponseData.push(fileUpload);
+            if (ResponseData.length == file.length) {
+              Upload.insertMany(ResponseData)
+                .then(function (docs) {
+                  res.json(docs);
+                })
+                .catch(function (err) {
+                  res.status(500).send(err);
+                });
+
+              // await Upload.create(uploads);
+
+              // res.json({ "error": false, "Message": "File Uploaded    SuceesFully", Data: ResponseData });
+            }
+          }
+        });
+      });
+    });
+  },
+  async put(req, res) {
+    try {
+      await Upload.updateOne({ _id: req.body.id }, { name: req.body.name }).exec()
 
       res.send({
-        image: newImage,
         saved: true,
-        message: "Create company Successfully"
+        message: "Successiful updated !"
       });
     } catch (err) {
       res.status(500).send({
-        error: "an error has occured trying to create the education"
+        saved: false,
+        error: "Your file update failed !"
+      });
+    }
+  },
+  async deleted(req, res) {
+    try {
+      await Upload.updateOne({ _id: req.body.id }, { isActive: false }).exec()
+
+      res.send({
+        saved: true,
+        message: "Successiful deleted !"
+      });
+    } catch (err) {
+      res.status(500).send({
+        saved: false,
+        error: "Your file delete failed !"
       });
     }
   }
-  // async put (req, res) {
-  //   try {
-  //     const image = await Education.update({ _id: req.params.educationID }, req.body)
-  //     res.send({
-  //       education: education
-  //     })
-  //   } catch (err) {
-  //     res.status(500).send({
-  //       error: 'an error has occured trying to update the education'
-  //     })
-  //   }
-  // },
-  // async remove (req, res) {
-  //   try {
-  //     const image = await Education.remove({ _id: req.params.educationID })
-  //     res.send("success deleted")
-  //   } catch (err) {
-  //     res.status(500).send({
-  //       error: 'an error has occured trying to delete the education'
-  //     })
-  //   }
-  // }
 };
