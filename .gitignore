@@ -5,7 +5,8 @@ package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-uploads
+uploads/
+backup/
 
 # Editor directories and files
 .env
