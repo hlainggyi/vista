@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"vistamyanmar.persons"},{"v":2,"unique":true,"key":{"personInfo.nrc":1},"name":"personInfo.nrc_1","ns":"vistamyanmar.persons","background":true}],"uuid":"866128ab1c1e4533b9b1010529962b66"}

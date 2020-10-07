@@ -4,7 +4,6 @@ const Ctrl = require("../../controllers");
 // Policy
 const Mid = require("../../middlewares");
 
-const uploadImage = Mid.uploadImage;
 
 module.exports = (app) => {
   // For Person
@@ -16,16 +15,14 @@ module.exports = (app) => {
     "/v1/persons",
     Mid.isAuth,
     Mid.isRole("admin"),
-    uploadImage,
     Ctrl.PersonController.post
   );
-  // app.post('/v1/persons', Mid.isAuth, upload.single('image'), Ctrl.PersonController.post)
+
   app.get("/v1/persons/:personId", Ctrl.PersonController.show);
   app.put(
     "/v1/persons",
     Mid.isAuth,
     Mid.isRole("admin"),
-    uploadImage,
     Ctrl.PersonController.put
   );
 

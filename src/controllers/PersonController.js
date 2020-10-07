@@ -13,7 +13,7 @@ module.exports = {
         { $sort: { updated: -1 } },
         {
           $project: {
-            profileImage: "$personInfo.profileImage",
+            image: "$personInfo.image",
             isActive: "$isActive",
             code: "$code",
             name: "$personInfo.name",

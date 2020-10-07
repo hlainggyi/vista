@@ -15,7 +15,7 @@ app.use(cors());
 app.use(morgan("dev"));
 // app.use(morgan('combined'))
 
-app.use("/v1/uploads", express.static("uploads"));
+// app.use("/v1/uploads", express.static("uploads"));
 // app.use("/v1/uploads", express.static(path.join(__dirname, "uploads")));
 
 // require("./routes/v1/authRoutes")(app)

@@ -3,7 +3,7 @@ var CronJob = require("cron").CronJob;
 
 var job = new CronJob(
   "15 4 * * MON",
-  function() {
+  function () {
     dbBackup.dbAutoBackUp();
     console.log("Backup Create");
   },
@@ -16,7 +16,7 @@ const ZipAFolder = require("./zip");
 
 var job2 = new CronJob(
   "30 4 * * MON",
-  function() {
+  function () {
     ZipAFolder.main();
   },
   null,
@@ -28,7 +28,7 @@ var job2 = new CronJob(
 
 var job3 = new CronJob(
   "45 4 * * MON",
-  function() {
+  function () {
     // sendToMail;
   },
   null,
@@ -38,4 +38,4 @@ var job3 = new CronJob(
 
 job.start();
 job2.start();
-// job3.start();
+job3.start();
