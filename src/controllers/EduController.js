@@ -1,11 +1,12 @@
 const { Edu } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
     try {
       const edus = await Edu.find({});
       res.send({
-        edus: edus
+        edus: enData(edus)
       });
     } catch (err) {
       res.status(500).send({
@@ -17,7 +18,7 @@ module.exports = {
     try {
       const edus = await Edu.find({}, { _id: 0, mm: 1, jp: 1 });
       res.send({
-        edus: edus
+        edus: enData(edus)
       });
     } catch (err) {
       res.status(500).send({
@@ -27,7 +28,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      await Edu.create(req.body);
+      await Edu.create(req.body.data);
       res.send({
         saved: true,
         message: "Successiful created Edu !"
@@ -41,7 +42,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      await Edu.updateOne({ _id: req.body._id }, req.body);
+      await Edu.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         saved: true,
         message: "Successiful updated edu !"

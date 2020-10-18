@@ -1,4 +1,4 @@
-const { Role } = require("../models")
+const { Role, User } = require("../models")
 // isAuthenticated
 // const isAuth = require('./isAuth')
 
@@ -9,8 +9,10 @@ module.exports = function isRole(...allowed) {
 
   // return a middleware
   return async (req, res, next) => {
-    const role = await Role.findOne({ _id: req.user.role })
-    if (isAllowed( role.name))
+
+    const user = await User.findOne({ _id: req.user }, { role: 1 })
+    const role = await Role.findOne({ _id: user.role })
+    if (isAllowed(role.name))
       next(); // role is allowed, so continue on the next middleware
     else {
       res.status(403).send({

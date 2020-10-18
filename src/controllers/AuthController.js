@@ -1,13 +1,13 @@
-const { User, Company } = require("../models");
+const { User, Company, Role } = require("../models");
 const Labels = require("../json");
+const enData = require("../data/crypto");
+
 module.exports = {
   async index(req, res) {
     try {
-      // const user = await req.hearders
-      // res.send(user)
-      var users = await User.find({}, { _id: 0, __v: 0, company: 0 });
+      var users = await User.find({}, { _id: 0, __v: 0, company: 0 }).populate('role', { _id: 0, name: 1 });
       res.send({
-        users: users
+        users: enData(users)
         // user: "User Auth"
       });
     } catch (err) {
@@ -22,7 +22,7 @@ module.exports = {
       const company = await Company.findById({ _id: req.user.company }, {});
 
       // 2. Create a new user
-      const user = await req.body;
+      const user = await req.body.data;
       const setUser = {
         name: user.name,
         email: user.email,
@@ -39,6 +39,7 @@ module.exports = {
       await company.save();
 
       res.send({
+        // user: req.body.data,
         saved: true,
         message: "Create User Successfully"
       });
@@ -69,9 +70,23 @@ module.exports = {
   async login(req, res) {
     try {
       const user = await User.findByCredentials(
-        req.body.email,
-        req.body.password
+        req.body.data.email,
+        req.body.data.password
       );
+
+      if (user.isActive) {
+        
+      const role = await Role.findById({ _id: user.role });
+
+      function isAdmin(val) {
+        if (val == "admin") {
+          return true;
+         } else {
+          return false;
+         }
+      }
+        
+      
       const token = await user.generateAuthToken();
       const company = await Company.findOne(
         { _id: user.company },
@@ -79,9 +94,40 @@ module.exports = {
       );
       const labels = await Labels;
 
-      res.send({ user, company, token, labels });
-    } catch (e) {
-      res.status(400).send();
+      res.send({
+        user: enData(user),
+        company: enData(company),
+        meta: enData(isAdmin(role.name)),
+        token: enData(token),
+        labels: enData(labels)
+      });
+    
+      } else {
+        res.status(500).send({
+          err: "This user is disabled"
+        });  
+      }
+
+    } catch (err) {
+      res.status(500).send({
+        err: "This not login"
+      });
+    }
+  },
+
+  async userUpdate(req, res) {
+    try {
+      let user = {
+        isActive: req.body.data.isActive
+      }
+      await User.updateOne({ email: req.body.data.email }, user);
+      res.send({
+        saved: true
+      })  
+    } catch (err) {
+      res.status(500).send({
+        err: "user update failed !"
+      });
     }
   }
 };

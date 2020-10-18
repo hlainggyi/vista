@@ -1,11 +1,12 @@
 const { Nation } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
     try {
       const nations = await Nation.find({});
       res.send({
-        nations: nations
+        nations: enData(nations)
       });
     } catch (err) {
       res.status(500).send({
@@ -17,7 +18,7 @@ module.exports = {
     try {
       const nations = await Nation.find({}, { _id: 0, mm: 1, jp: 1 });
       res.send({
-        nations: nations
+        nations: enData(nations)
       });
     } catch (err) {
       res.status(500).send({
@@ -27,7 +28,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      await Nation.create(req.body);
+      await Nation.create(req.body.data);
       res.send({
         saved: true,
         message: "Successiful created Nation !"
@@ -41,7 +42,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      await Nation.updateOne({ _id: req.body._id }, req.body);
+      await Nation.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         saved: true,
         message: "Successiful updated Nation !"

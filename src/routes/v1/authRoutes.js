@@ -6,16 +6,19 @@ const Mid = require("../../middlewares");
 
 module.exports = (app) => {
   app.get("/v1/users", Ctrl.AuthController.index);
-  app.post("/v1/login", Ctrl.AuthController.login);
+  app.post("/v1/login", Mid.crypto, Ctrl.AuthController.login);
   app.post(
     "/v1/dev-register",
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.AuthController.devRegister
   );
   app.post(
     "/v1/register",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.AuthController.register
   );
+  app.patch("/v1/user-update", Mid.isAuth, Mid.crypto, Mid.isRole("admin"), Ctrl.AuthController.userUpdate)
 };

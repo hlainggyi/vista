@@ -1,11 +1,12 @@
 const { NRC } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
     try {
       const nrclists = await NRC.find({});
       res.send({
-        nrclists: nrclists
+        nrclists: enData(nrclists)
       });
     } catch (err) {
       res.status(500).send({
@@ -15,7 +16,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      await NRC.create(req.body);
+      await NRC.create(req.body.data);
       res.send({
         saved: true,
         message: "Successiful created nrc !"
@@ -30,9 +31,9 @@ module.exports = {
   async put(req, res) {
     try {
       const updateNrc = {
-        nrclists: req.body.nrclists
+        nrclists: req.body.data.nrclists
       };
-      await NRC.updateOne({ _id: req.body._id }, updateNrc);
+      await NRC.updateOne({ _id: req.body.data._id }, updateNrc);
       // const nrclists = req.body;
       res.send({
         saved: true,

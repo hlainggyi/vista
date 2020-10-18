@@ -4,7 +4,9 @@ require("../src/config/mongoose.conf")
 
 require("../src/routes")
 
-
-
 var PORT = process.env.PORT || '3000'
-app.listen(PORT)
+
+app.listen(PORT, function(err){ 
+    if (err) console.log("Error in server setup") 
+    console.log("Server listening on Port: ", PORT); 
+}) 

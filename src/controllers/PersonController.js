@@ -1,5 +1,5 @@
-// const multer = require('multer');
-// const upload = multer({dest: 'uploads/'});
+
+const enData = require("../data/crypto");
 
 const { Person, Company } = require("../models");
 
@@ -36,7 +36,7 @@ module.exports = {
         }
       ]).allowDiskUse(true);
       res.send({
-        persons: persons
+        persons: enData(persons)
       });
     } catch (err) {
       res.status(500).send({
@@ -58,19 +58,18 @@ module.exports = {
       // 2. Create a new Person
       const newPerson = {
         company: req.user.company,
-        categories: req.body.categories,
+        categories: req.body.data.categories,
         code: codeCounter.length + 1,
-        isActive: req.body.isActive,
-        personInfo: req.body.personInfo,
-        personDetail: req.body.personDetail,
-        jpInfo: req.body.jpInfo,
-        edus: req.body.edus,
-        trainings: req.body.trainings,
-        jobs: req.body.jobs,
-        families: req.body.families,
-        questions: req.body.questions,
-        other: req.body.other,
-        images: req.body.images
+        isActive: req.body.data.isActive,
+        personInfo: req.body.data.personInfo,
+        personDetail: req.body.data.personDetail,
+        jpInfo: req.body.data.jpInfo,
+        edus: req.body.data.edus,
+        trainings: req.body.data.trainings,
+        jobs: req.body.data.jobs,
+        families: req.body.data.families,
+        questions: req.body.data.questions,
+        other: req.body.data.other
       };
 
       const person = await Person.create(newPerson);
@@ -100,7 +99,7 @@ module.exports = {
       }).populate("japaneselanguages");
 
       res.send({
-        person: person
+        person: enData(person)
       });
     } catch (err) {
       res.status(500).send({
@@ -111,25 +110,18 @@ module.exports = {
   async put(req, res) {
     try {
       const updatePerson = {
-        isActive: req.body.isActive,
-        personInfo: req.body.personInfo,
-        personDetail: req.body.personDetail,
-        jpInfo: req.body.jpInfo,
-        edus: req.body.edus,
-        trainings: req.body.trainings,
-        jobs: req.body.jobs,
-        families: req.body.families,
-        questions: req.body.questions,
-        other: req.body.other,
-        images: req.body.images
+        isActive: req.body.data.isActive,
+        personInfo: req.body.data.personInfo,
+        personDetail: req.body.data.personDetail,
+        jpInfo: req.body.data.jpInfo,
+        edus: req.body.data.edus,
+        trainings: req.body.data.trainings,
+        jobs: req.body.data.jobs,
+        families: req.body.data.families,
+        questions: req.body.data.questions,
+        other: req.body.data.other
       };
-      await Person.updateOne({ _id: req.body.person }, updatePerson);
-
-      // const gallery = {
-      //   name: req.body.galleryImage.name,
-      //   src: req.body.galleryImage.src,
-      //   caption: req.body.galleryImage.caption
-      // };
+      await Person.updateOne({ _id: req.body.data.person }, updatePerson);
 
       res.send({
         saved: true,
@@ -283,33 +275,34 @@ module.exports = {
         { _id: 1 }
       );
 
-      res.send({
-        persons: {
-          general: {
-            total: general.length,
-            interviewList: generalInterviewList.length,
-            interviewPass: generalInterviewPass.length,
-            onJob: generalOnJob.length
-          },
-          caregiver: {
-            total: caregiver.length,
-            interviewList: careInterviewList.length,
-            interviewPass: careInterviewPass.length,
-            onJob: careOnJob.length
-          },
-          it: {
-            total: it.length,
-            interviewList: itInterviewList.length,
-            interviewPass: itInterviewPass.length,
-            onJob: itOnJob.length
-          },
-          engineer: {
-            total: engineer.length,
-            interviewList: engineerInterviewList.length,
-            interviewPass: engineerInterviewPass.length,
-            onJob: engineerOnJob.length
-          }
+      var persons = {
+        general: {
+          total: general.length,
+          interviewList: generalInterviewList.length,
+          interviewPass: generalInterviewPass.length,
+          onJob: generalOnJob.length
+        },
+        caregiver: {
+          total: caregiver.length,
+          interviewList: careInterviewList.length,
+          interviewPass: careInterviewPass.length,
+          onJob: careOnJob.length
+        },
+        it: {
+          total: it.length,
+          interviewList: itInterviewList.length,
+          interviewPass: itInterviewPass.length,
+          onJob: itOnJob.length
+        },
+        engineer: {
+          total: engineer.length,
+          interviewList: engineerInterviewList.length,
+          interviewPass: engineerInterviewPass.length,
+          onJob: engineerOnJob.length
         }
+      }
+      res.send({
+        persons: enData(persons)
       });
     } catch (err) {
       alert(err);

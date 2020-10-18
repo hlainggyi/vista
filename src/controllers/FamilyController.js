@@ -1,11 +1,12 @@
 const { Family } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
     try {
       const families = await Family.find({});
       res.send({
-        families: families
+        families: enData(families)
       });
     } catch (err) {
       res.status(500).send({
@@ -17,7 +18,7 @@ module.exports = {
     try {
       const families = await Family.find({}, { _id: 0, mm: 1, jp: 1 });
       res.send({
-        families: families
+        families: enData(families)
       });
     } catch (err) {
       res.status(500).send({
@@ -27,7 +28,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      await Family.create(req.body);
+      await Family.create(req.body.data);
       res.send({
         saved: true,
         message: "Successiful created Family !"
@@ -41,7 +42,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      await Family.updateOne({ _id: req.body._id }, req.body);
+      await Family.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         saved: true,
         message: "Successiful updated Family !"

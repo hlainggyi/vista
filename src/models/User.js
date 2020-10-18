@@ -5,34 +5,38 @@ const config = require("../config/setting.conf")
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        lowercase: true,
-        unique: true,
-        trim: true,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-      type: Schema.Types.ObjectId,
-      ref: 'Role'
-    },
-    company: {
-      type: Schema.Types.ObjectId,
-      ref: 'Company'
-    },
-    tokens: [{
-      token: {
-          type: String,
-          required: true
-      }
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    lowercase: true,
+    unique: true,
+    trim: true,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
+  role: {
+    type: Schema.Types.ObjectId,
+    ref: 'Role'
+  },
+  company: {
+    type: Schema.Types.ObjectId,
+    ref: 'Company'
+  },
+  tokens: [{
+    token: {
+      type: String,
+      required: true
+    }
   }]
 });
 
@@ -67,13 +71,13 @@ userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email })
 
   if (!user) {
-      throw new Error('Unable to login')
+    throw new Error('Unable to login')
   }
 
   const isMatch = await bcrypt.compare(password, user.password)
 
   if (!isMatch) {
-      throw new Error('Unable to login')
+    throw new Error('Unable to login')
   }
 
   return user
@@ -84,13 +88,13 @@ userSchema.pre('save', async function (next) {
   const user = this
 
   if (user.isModified('password')) {
-      user.password = await bcrypt.hash(user.password, 8)
+    user.password = await bcrypt.hash(user.password, 8)
   }
 
   next()
 })
 
-  
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = User

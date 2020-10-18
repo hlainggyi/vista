@@ -1,4 +1,5 @@
 const { Partner, Person, Interview } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
@@ -8,7 +9,7 @@ module.exports = {
         _id: 0
       });
       res.send({
-        interviews: interviews
+        interviews: enData(interviews)
       });
     } catch (err) {
       res.status(500).send({
@@ -33,7 +34,7 @@ module.exports = {
       };
 
       res.send({
-        interview: interview
+        interview: enData(interview)
       });
     } catch (err) {
       res.status(500).send({
@@ -53,7 +54,7 @@ module.exports = {
         },
         {
           $project: {
-            profileImage: "$personInfo.profileImage",
+            image: "$personInfo.image",
             isActive: "$isActive",
             code: "$code",
             name: "$personInfo.name",
@@ -71,7 +72,7 @@ module.exports = {
         }
       ]).allowDiskUse(true);
       res.send({
-        persons: persons
+        persons: enData(persons)
       });
     } catch (err) {
       res.status(500).send({
@@ -83,10 +84,10 @@ module.exports = {
     try {
       const newInterview = {
         company: req.user.company,
-        date: req.body.date,
-        partner: req.body.partner,
-        title: req.body.title,
-        persons: req.body.persons
+        date: req.body.data.date,
+        partner: req.body.data.partner,
+        title: req.body.data.title,
+        persons: req.body.data.persons
       };
       await Interview.create(newInterview);
       res.send({
@@ -102,7 +103,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      await Interview.updateOne({ _id: req.body._id }, req.body);
+      await Interview.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         saved: true,
         message: "This interview list is updated !"

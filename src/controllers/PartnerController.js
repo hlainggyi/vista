@@ -1,5 +1,5 @@
 const { Partner, Company } = require("../models");
-
+const enData = require("../data/crypto");
 module.exports = {
   async index(req, res) {
     try {
@@ -8,7 +8,7 @@ module.exports = {
         { __v: 0 }
       );
       res.send({
-        partners: partners
+        partners: enData(partners)
       });
     } catch (err) {
       res.status(500).send({
@@ -23,13 +23,13 @@ module.exports = {
 
       // 2. Create a new teacher
       const newPartner = {
-        name: req.body.name,
+        name: req.body.data.name,
         company: req.user.company,
-        companyName: req.body.companyName,
-        logo: req.body.logo,
-        email: req.body.email,
-        address: req.body.address,
-        status: req.body.status
+        companyName: req.body.data.companyName,
+        logo: req.body.data.logo,
+        email: req.body.data.email,
+        address: req.body.data.address,
+        status: req.body.data.status
       };
 
       const partner = await Partner.create(newPartner);
@@ -52,7 +52,7 @@ module.exports = {
     try {
       const partner = await Partner.findById({ _id: req.params.partner });
       res.send({
-        partner: partner
+        partner: enData(partner)
       });
     } catch (err) {
       res.status(500).send({
@@ -62,7 +62,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      await Partner.updateOne({ _id: req.body._id }, req.body);
+      await Partner.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         saved: true,
         message: "This partner is updated !"

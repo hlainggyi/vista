@@ -8,10 +8,11 @@ module.exports = (app) => {
     Mid.isRole("developer"),
     Ctrl.CompanyController.index
   );
-  // app.post("/v1/companies", Mid.isAuth, Ctrl.CompanyController.post);
+  // app.post("/v1/companies", Mid.isAuth, Mid.crypto, Ctrl.CompanyController.post);
   app.put(
     "/v1/companies",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("developer", "admin"),
     Ctrl.CompanyController.put
   );

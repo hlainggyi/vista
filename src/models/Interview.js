@@ -33,7 +33,7 @@ var interviewYearSchema = new Schema({
         type: String,
         default: null
       },
-      profileImage: String
+      image: String
     }
   ]
 });

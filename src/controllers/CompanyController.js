@@ -1,5 +1,5 @@
 const { Company, User, Role } = require("../models");
-// const company  = require('../models/company')
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
@@ -32,7 +32,7 @@ module.exports = {
         yenExchangeRate: newCompany.yenExchangeRate
       };
       res.send({
-        company: company
+        company: enData(company)
       });
     } catch (err) {
       res.status(500).send({
@@ -130,10 +130,10 @@ module.exports = {
     try {
       const company = await Company.updateOne(
         { _id: req.user.company },
-        req.body
+        req.body.data
       );
       res.send({
-        company: company,
+        company: enData(company),
         saved: true,
         message: "Your company info is success updated !"
       });

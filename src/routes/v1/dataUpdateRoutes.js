@@ -10,12 +10,14 @@ module.exports = (app) => {
   app.post(
     "/v1/nrc-lists",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.NrcController.post
   );
   app.put(
     "/v1/nrc-lists",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.NrcController.put
   );
@@ -41,10 +43,11 @@ module.exports = (app) => {
   app.post(
     "/v1/edus",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.EduController.post
   );
-  app.put("/v1/edus", Mid.isAuth, Mid.isRole("admin"), Ctrl.EduController.put);
+  app.put("/v1/edus", Mid.isAuth, Mid.crypto, Mid.isRole("admin"), Ctrl.EduController.put);
 
   //    For Degree
   app.get("/v1/degrees", Mid.isAuth, Ctrl.DegreeController.index);
@@ -52,12 +55,14 @@ module.exports = (app) => {
   app.post(
     "/v1/degrees",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.DegreeController.post
   );
   app.put(
     "/v1/degrees",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.DegreeController.put
   );
@@ -68,12 +73,14 @@ module.exports = (app) => {
   app.post(
     "/v1/majors",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.MajorController.post
   );
   app.put(
     "/v1/majors",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.MajorController.put
   );
@@ -84,12 +91,14 @@ module.exports = (app) => {
   app.post(
     "/v1/families",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.FamilyController.post
   );
   app.put(
     "/v1/families",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.FamilyController.put
   );
@@ -100,12 +109,14 @@ module.exports = (app) => {
   app.post(
     "/v1/nations",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.NationController.post
   );
   app.put(
     "/v1/nations",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.NationController.put
   );
@@ -116,12 +127,14 @@ module.exports = (app) => {
   app.post(
     "/v1/priorities",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.PriorityController.post
   );
   app.put(
     "/v1/priorities",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.PriorityController.put
   );

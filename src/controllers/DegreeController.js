@@ -1,11 +1,12 @@
 const { Degree } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
     try {
       const degrees = await Degree.find({});
       res.send({
-        degrees: degrees
+        degrees: enData(degrees)
       });
     } catch (err) {
       res.status(500).send({
@@ -17,7 +18,7 @@ module.exports = {
     try {
       const degrees = await Degree.find({}, { _id: 0, mm: 1, jp: 1 });
       res.send({
-        degrees: degrees
+        degrees: enData(degrees)
       });
     } catch (err) {
       res.status(500).send({
@@ -27,7 +28,7 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      await Degree.create(req.body);
+      await Degree.create(req.body.data);
       res.send({
         saved: true,
         message: "Successiful created Degree !"
@@ -41,8 +42,7 @@ module.exports = {
   },
   async put(req, res) {
     try {
-      // const updageDegree = req.body.degree;
-      await Degree.updateOne({ _id: req.body._id }, req.body);
+      await Degree.updateOne({ _id: req.body.data._id }, req.body.data);
       res.send({
         // degree: updageDegree,
         saved: true,

@@ -17,12 +17,14 @@ module.exports = (app) => {
   app.post(
     "/v1/interviews",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.InterviewController.post
   );
   app.put(
     "/v1/interviews",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.InterviewController.put
   );

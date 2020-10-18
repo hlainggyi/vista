@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.post(
     "/v1/partners",
     Mid.isAuth,
+    Mid.crypto,
     Mid.isRole("admin"),
     Ctrl.PartnerController.post
   );
@@ -22,8 +23,9 @@ module.exports = (app) => {
   );
   app.put(
     "/v1/partners",
-    Mid.isRole("admin"),
     Mid.isAuth,
+    Mid.crypto,
+    Mid.isRole("admin"),
     Ctrl.PartnerController.put
   );
   app.delete(
