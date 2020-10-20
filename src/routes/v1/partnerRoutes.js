@@ -8,7 +8,11 @@ module.exports = (app) => {
   // For Partner
   // Partner Route
   /** name, position, nrc, company_id */
-  app.get("/v1/partners", Mid.isAuth, Ctrl.PartnerController.index);
+  app.get(
+    "/v1/partners", 
+    Mid.isAuth, 
+    Ctrl.PartnerController.index
+  );
   app.post(
     "/v1/partners",
     Mid.isAuth,

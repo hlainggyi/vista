@@ -48,8 +48,7 @@ module.exports = {
         {
           $match: {
             company: req.user.company,
-            isActive: 1,
-            isActive: 2
+            $or: [ { isActive: { $gt: 0, $lt: 3 } }]
           }
         },
         {

@@ -20,5 +20,32 @@ module.exports = (app) => {
     Mid.isRole("admin"),
     Ctrl.AuthController.register
   );
-  app.patch("/v1/user-update", Mid.isAuth, Mid.crypto, Mid.isRole("admin"), Ctrl.AuthController.userUpdate)
+  
+  app.patch(
+    "/v1/user-update", 
+    Mid.isAuth, 
+    Mid.crypto, 
+    Mid.isRole("admin"), 
+    Ctrl.AuthController.userUpdate
+  );
+  
+  app.put(
+    "/v1/change-password", 
+    Mid.isAuth, 
+    Mid.crypto, 
+    Ctrl.AuthController.changePassword
+  );
+
+  app.get(
+    "/v1/show-user", 
+    Mid.isAuth, 
+    Ctrl.AuthController.show
+  );
+
+  app.patch(
+    "/v1/user-name-update", 
+    Mid.isAuth, 
+    Mid.crypto, 
+    Ctrl.AuthController.userName
+  );
 };

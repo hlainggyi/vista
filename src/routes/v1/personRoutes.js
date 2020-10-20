@@ -15,7 +15,7 @@ module.exports = (app) => {
     "/v1/persons",
     Mid.isAuth,
     Mid.crypto,
-    Mid.isRole("admin"),
+    Mid.isRole("admin", "editor"),
     Ctrl.PersonController.post
   );
 
@@ -24,7 +24,7 @@ module.exports = (app) => {
     "/v1/persons",
     Mid.isAuth,
     Mid.crypto,
-    Mid.isRole("admin"),
+    Mid.isRole("admin", "editor"),
     Ctrl.PersonController.put
   );
 

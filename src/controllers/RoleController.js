@@ -1,4 +1,5 @@
 const { Role } = require("../models");
+const enData = require("../data/crypto");
 
 module.exports = {
   async index(req, res) {
@@ -6,7 +7,7 @@ module.exports = {
       const roles = await Role.findByRole(req.user.role);
 
       res.send({
-        roles: roles
+        roles: enData(roles)
       });
     } catch (err) {
       res.status(500).send({
@@ -19,7 +20,7 @@ module.exports = {
       // roles.level
       const roles = await Role.find({ level: { $gt: 0 } }).sort({ date: -1 });
       res.send({
-        roles: roles
+        roles: enData(roles)
       });
     } catch (err) {
       res.status(500).send({
@@ -31,7 +32,7 @@ module.exports = {
     try {
       const role = await Role.findById({ _id: req.params.RoleID });
       res.send({
-        role: role
+        role: enData(role)
       });
     } catch (err) {
       res.status(500).send({

@@ -1,6 +1,7 @@
 const { User, Company, Role } = require("../models");
 const Labels = require("../json");
 const enData = require("../data/crypto");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   async index(req, res) {
@@ -39,13 +40,12 @@ module.exports = {
       await company.save();
 
       res.send({
-        // user: req.body.data,
         saved: true,
-        message: "Create User Successfully"
+        message: "Successfully created new user."
       });
     } catch (err) {
       res.status(500).send({
-        error: "This is Register"
+        error: "New user registration failed !"
       });
     }
   },
@@ -104,30 +104,91 @@ module.exports = {
     
       } else {
         res.status(500).send({
-          err: "This user is disabled"
+          err: "This user is restricted !"
         });  
       }
 
     } catch (err) {
       res.status(500).send({
-        err: "This not login"
+        err: "This user could not be found !"
       });
     }
   },
 
   async userUpdate(req, res) {
     try {
+      const role = await Role.findOne({ name: req.body.data.role }, { _id: 1 }).exec();
       let user = {
-        isActive: req.body.data.isActive
-      }
+        isActive: req.body.data.isActive,
+        role: role._id,
+      } ;
       await User.updateOne({ email: req.body.data.email }, user);
       res.send({
-        saved: true
+        saved: true,
+        message: "Your action was successful."
       })  
     } catch (err) {
       res.status(500).send({
-        err: "user update failed !"
+        err: "Your action failed.!"
       });
+    }
+  },
+
+  async show(req, res) {
+    try {
+      res.send({
+        user: enData(req.user)
+        // user: "User Auth"
+      });
+    } catch (err) {
+      res.status(500).send({
+        err: "This user could not be found !"
+      });
+    }
+
+
+  },
+
+  async userName(req, res) {
+    try {
+      const user = {name: req.body.data.name}
+      await User.updateOne({ _id: req.user._id }, user);
+      res.send({
+        saved: true,
+        message: "Your name is updated !."
+      })  
+    } catch (err) {
+      res.status(500).send({
+        err: "Your action failed.!"
+      });
+    }
+  },
+
+  async changePassword (req, res) {
+    try {
+
+      const user = await User.findByCredentials(
+        req.user.email,
+        req.body.data.oldPassword
+      );
+      const newPassword = req.body.data.newPassword;
+      const confirmPassword = req.body.data.confirmPassword;
+
+        if ( newPassword == confirmPassword ) {
+          const setUser = {
+            password: await bcrypt.hash(newPassword, 8),
+          };
+          await User.update({ _id: req.user._id }, setUser);
+        }
+
+      res.send({
+        saved: true,
+        message: "Your change password is Successiful !"
+      })  
+    } catch (err) {
+      res.status(500).send({
+        error: "Your password change failed !"
+      });      
     }
   }
 };
